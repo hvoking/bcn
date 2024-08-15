@@ -1,0 +1,14 @@
+.main {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+}
+// mobile-style
+@media screen and (max-width: 1000px) {
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 2fr;
+  }
+  .sidebar-left {
+    grid-row: 2;
+  }
+}
