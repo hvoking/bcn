@@ -1,10 +1,13 @@
+// App imports
+import './styles.scss';
+
 // Third party imports
 import { NavigationControl, FullscreenControl, GeolocateControl } from 'react-map-gl';
 
 // Context imports
 import { useMapboxProperties } from '../../../context/maps/mapbox';
 
-export const MapControllers = () => {
+export const Controllers = () => {
 	const { navControlStyle } = useMapboxProperties();
 	
 	return (
@@ -16,4 +19,4 @@ export const MapControllers = () => {
 	)
 }
 
-MapControllers.displayName="MapControllers";
+Controllers.displayName="Controllers";

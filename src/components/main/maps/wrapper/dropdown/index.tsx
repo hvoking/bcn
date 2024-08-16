@@ -2,16 +2,16 @@
 import { useState } from 'react';
 
 // App imports
-import { Arrow } from './arrow';
+import { Arrow } from '../../../utils/arrow';
 import { Suggestions } from './suggestions';
 import './styles.scss';
 
 // Context imports
-import { useMapboxProperties } from '../../../context/maps/mapbox';
-import { useGeo } from '../../../context/filters/geo';
-import { useStyle } from '../../../context/api/styles';
+import { useMapboxProperties } from '../../../../context/maps/mapbox';
+import { useGeo } from '../../../../context/filters/geo';
+import { useStyle } from '../../../../context/api/styles';
 
-export const CityDropdown = () => {
+export const Dropdown = () => {
 	const { Locations, viewport, setViewport } = useMapboxProperties();
 	const { cityName, setCityName } = useGeo();
 	const { setStyleName } = useStyle();
@@ -50,4 +50,4 @@ export const CityDropdown = () => {
 	)
 }
 
-CityDropdown.displayName="CityDropdown";
+Dropdown.displayName="Dropdown";

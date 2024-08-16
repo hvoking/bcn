@@ -2,17 +2,14 @@
 import { useState } from 'react';
 
 // App imports
-import { MapControllers } from './controllers';
-import { CityDropdown } from './dropdown';
-import { Basemaps } from './basemaps';
+import { Controllers } from './controllers';
+import { Wrapper } from './wrapper';
 import { CustomPopup } from './popup';
-// import { DrawPolygon } from './draw';
 import { Styles } from './styles';
-import './styles.scss';
 
 // Context imports
 import { useMapboxProperties } from '../../context/maps/mapbox';
-import { useBaseMaps } from '../../context/maps/basemaps';
+import { useSwitch } from '../../context/maps/switch';
 
 // Third-party imports
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -20,9 +17,9 @@ import { Map } from 'react-map-gl';
 
 export const Maps = () => {
 	const { mapRef, viewport, tilesProperties, setTilesProperties } = useMapboxProperties();
-	const { activeSatelite, currentBaseMap } = useBaseMaps();
+	const { activeSwitch, currentBaseMap } = useSwitch();
 
-	const mapStyle = !activeSatelite ? "mapbox://styles/mapbox/satellite-v9" : currentBaseMap;
+	const mapStyle = !activeSwitch ? "mapbox://styles/mapbox/satellite-v9" : currentBaseMap;
 
 	const onClick = (e: any) => {
 		const popupCoordinates = e.lngLat;
@@ -40,8 +37,7 @@ export const Maps = () => {
 	}
 
 	return (
-		<div className="map-container">
-			<CityDropdown/>
+		<Wrapper>
 			<Map
 				ref={mapRef}
 				initialViewState={viewport}
@@ -49,12 +45,10 @@ export const Maps = () => {
 				mapStyle={mapStyle}
 				onClick={onClick}
 			>
-				<MapControllers/>
+				<Controllers/>
 				<Styles/>
 				<CustomPopup tilesProperties={tilesProperties}/>
-				{/*<DrawPolygon/>*/}
 			</Map>
-			<Basemaps/>
-		</div>
+		</Wrapper>
 	)
 }
