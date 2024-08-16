@@ -1,11 +1,16 @@
+// App imports
+import { createCircle } from '../../utils/circle';
+
 // Context imports
 import { useStyle } from '../../../context/api/styles';
+import { useMapboxProperties } from '../../../context/maps/mapbox';
 
 // Third party imports
 import { Source, Layer } from 'react-map-gl';
 
-export const Styles = () => {
+export const Tiles = () => {
 	const { styleData, styleName } = useStyle();
+	const { viewport } = useMapboxProperties();
 	
 	const tempUrl = `
 		${process.env.REACT_APP_API_URL}/
@@ -16,6 +21,8 @@ export const Styles = () => {
 		&y={y}
 	`;
 	const url = tempUrl.replace(/\s/g, '');
+
+	const circle = createCircle([viewport.latitude, viewport.longitude], 0.5, 64);
 
 	return (
 		<Source 
@@ -34,4 +41,4 @@ export const Styles = () => {
 	)
 }
 
-Styles.displayName="Styles"
+Tiles.displayName="Tiles"

@@ -2,7 +2,8 @@
 import { Controllers } from './controllers';
 import { Wrapper } from './wrapper';
 import { CustomPopup } from './popup';
-import { Styles } from './styles';
+import { Tiles } from './tiles';
+import { CircleLayer } from './circle';
 
 // Context imports
 import { useMapboxProperties } from '../../context/maps/mapbox';
@@ -40,8 +41,9 @@ export const Maps = () => {
 				mapStyle={mapStyle}
 				onClick={onClick}
 			>
+				<CircleLayer/>
 				<Controllers/>
-				<Styles/>
+				<Tiles/>
 				<CustomPopup tilesProperties={tilesProperties}/>
 			</Map>
 		</Wrapper>
