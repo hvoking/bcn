@@ -5,10 +5,10 @@ import './styles.scss';
 import { NavigationControl, FullscreenControl, GeolocateControl } from 'react-map-gl';
 
 // Context imports
-import { useMapboxProperties } from '../../../context/maps/mapbox';
+import { useGeo } from '../../../context/filters/geo';
 
 export const Controllers = () => {
-	const { navControlStyle } = useMapboxProperties();
+	const { navControlStyle } = useGeo();
 	
 	return (
 		<>

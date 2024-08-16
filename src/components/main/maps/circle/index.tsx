@@ -2,16 +2,16 @@
 import { createCircle } from '../../utils/circle';
 
 // Context imports
-import { useMapboxProperties } from '../../../context/maps/mapbox';
+import { useGeo } from '../../../context/filters/geo';
 
 // Third party imports
 import { Source, Layer, LayerProps } from 'react-map-gl';
 
 // The CircleLayer component
 export const CircleLayer = () => {
-    const { viewport } = useMapboxProperties();
+    const { viewport } = useGeo();
 
-    const circleGeometry: any = createCircle([viewport.longitude, viewport.latitude], 0.5, 64);
+    const circleGeometry: any = createCircle([viewport.longitude, viewport.latitude], 1, 64);
 
     const circleLayer: LayerProps = {
         id: 'circle',
@@ -19,7 +19,7 @@ export const CircleLayer = () => {
         source: 'polygon',
         paint: {
             "fill-color": "blue",
-            "fill-opacity": 0.6
+            "fill-opacity": 0.2
         }
     };
 

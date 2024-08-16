@@ -6,16 +6,14 @@ import { Tiles } from './tiles';
 import { CircleLayer } from './circle';
 
 // Context imports
-import { useMapboxProperties } from '../../context/maps/mapbox';
-import { useBasemap } from '../../context/maps/basemap';
+import { useGeo } from '../../context/filters/geo';
 
 // Third-party imports
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Map } from 'react-map-gl';
 
 export const Maps = () => {
-	const { mapRef, viewport, tilesProperties, setTilesProperties } = useMapboxProperties();
-	const { mapStyle } = useBasemap();
+	const { mapStyle, mapRef, viewport, tilesProperties, setTilesProperties } = useGeo();
 
 	const onClick = (e: any) => {
 		const popupCoordinates = e.lngLat;

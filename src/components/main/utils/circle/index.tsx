@@ -27,6 +27,7 @@ export const createCircle = (center: any, radiusInKm: any, points: any) => {
         "type": "FeatureCollection",
         "features": [{
             "type": "Feature",
+            "properties": {},
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [ret]
