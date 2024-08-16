@@ -1,12 +1,12 @@
 import { MapboxProvider } from './mapbox';
-import { SwitchProvider } from './switch';
+import { BasemapProvider } from './basemap';
 
 export const MapsProvider = ({children}: any) => {
   return (
     <MapboxProvider>
-    <SwitchProvider>
+    <BasemapProvider>
       {children}
-    </SwitchProvider>
+    </BasemapProvider>
     </MapboxProvider>
   )
 }

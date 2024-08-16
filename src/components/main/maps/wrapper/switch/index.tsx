@@ -2,10 +2,10 @@
 import './styles.scss';
 
 // Context imports
-import { useSwitch } from '../../../../context/maps/switch';
+import { useBasemap } from '../../../../context/maps/basemap';
 
 export const Switch = () => {
-	const { setActiveSwitch } = useSwitch();
+	const { setActiveBasemap } = useBasemap();
 	
 	return (
 		<div className="basemaps-wrapper">
@@ -18,7 +18,7 @@ export const Switch = () => {
 				  <span className="slider round"/>
 				  <span 
 				  	className="labels" 
-					onClick={() => setActiveSwitch((prev: boolean) => !prev)}
+					onClick={() => setActiveBasemap((prev: boolean) => !prev)}
 				  />
 				</label>
 			</div>
