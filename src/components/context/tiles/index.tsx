@@ -30,24 +30,24 @@ export const TilesProvider = ({children}: any) => {
 	// 	mapRef.current && setWithinProperties(featuresArray);
 	// }, [ marker ])
 
-	const onClick = (e: any) => {
-		const popupCoordinates = e.lngLat;
-		const activeLayers = mapRef.current.queryRenderedFeatures(e.point);
-		const filteredLayers = activeLayers.filter((item: any) => item.source === "raster-style");
+	// const onClick = (e: any) => {
+	// 	const popupCoordinates = e.lngLat;
+	// 	const activeLayers = mapRef.current.queryRenderedFeatures(e.point);
+	// 	const filteredLayers = activeLayers.filter((item: any) => item.source === "raster-style");
 
-		if (filteredLayers.length > 0) {
-			const currentItem = filteredLayers[0];
-			const properties = currentItem.properties;
-			setTilesProperties({...properties, coordinates: popupCoordinates});	
-		}
-		else {
-			setTilesProperties(null);	
-		}
-	}
+	// 	if (filteredLayers.length > 0) {
+	// 		const currentItem = filteredLayers[0];
+	// 		const properties = currentItem.properties;
+	// 		setTilesProperties({...properties, coordinates: popupCoordinates});	
+	// 	}
+	// 	else {
+	// 		setTilesProperties(null);	
+	// 	}
+	// }
 
 	return (
 		<TilesContext.Provider value={{ 
-			tilesProperties, onClick, withinProperties
+			tilesProperties, withinProperties
 		}}>
 			{children}
 		</TilesContext.Provider>

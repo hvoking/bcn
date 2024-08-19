@@ -1,31 +1,33 @@
-// React imports
-import { useCallback } from 'react';
-
 // Context imports
-import { useCircle } from '../../../context/circle'
+import { useCircle } from '../../../context/circle';
 
 // Third party imports
-import { Source, Layer } from 'react-map-gl';
+import { Source, Layer, LayerProps } from 'react-map-gl';
 
 export const Mask = () => {
-	const { circleGeometry } = useCircle();
-	
-	return (
-		<Source 
-			id="mask-source" 
-			type="geojson" 
-			data={circleGeometry}
-		>
-		  <Layer
-		    id="mask-layer"
-		    type="fill"
-		    paint={{
-		      'fill-color': '#000000',
-		      'fill-opacity': 0.5
-		    }}
-		  />
-		</Source>
-	)
-}
+    const { circleGeometry } = useCircle();
 
-Mask.displayName="Mask";
+    const circleLayer: LayerProps = {
+        id: 'layer-mask',
+        type: 'fill',
+        source: 'polygon',
+        paint: {
+            "fill-color": "blue",
+            "fill-opacity": 0.2
+        }
+    };
+
+    return (
+        <Source 
+            id="polygon" 
+            type="geojson" 
+            data={circleGeometry}
+        >
+            <Layer 
+                {...circleLayer}
+            />
+        </Source>
+    );
+};
+
+Mask.displayName = "Mask";

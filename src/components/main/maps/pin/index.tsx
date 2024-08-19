@@ -1,9 +1,6 @@
 // React imports
 import { useCallback } from 'react';
 
-// App imports
-import './styles.scss';
-
 // Context imports
 import { useGeo } from '../../../context/geo';
 
