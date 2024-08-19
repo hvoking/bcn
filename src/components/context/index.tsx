@@ -1,18 +1,21 @@
 import { GeoProvider } from './geo';
 import { StylesProvider } from './styles';
-import { CircleProvider } from './circle';
+import { FilterProvider } from './filter';
 import { TilesProvider } from './tiles';
+import { MapsProvider } from './maps';
 
 export const MainProvider = ({children}: any) => {
   return (
     <GeoProvider>
+    <MapsProvider>
     <StylesProvider>
-    <CircleProvider>
+    <FilterProvider>
     <TilesProvider>
       {children}
     </TilesProvider>
-    </CircleProvider>
+    </FilterProvider>
     </StylesProvider>
+    </MapsProvider>
     </GeoProvider>
   )
 }

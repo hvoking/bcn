@@ -4,19 +4,19 @@ import { useState, useContext, createContext } from 'react';
 // Context imports
 import { useGeo } from '../geo';
 
-const CircleContext: React.Context<any> = createContext(null);
+const FilterContext: React.Context<any> = createContext(null);
 
-export const useCircle = () => {
+export const useFilter = () => {
 	return (
-		useContext(CircleContext)
+		useContext(FilterContext)
 	)
 }
 
-export const CircleProvider = ({children}: any) => {
+export const FilterProvider = ({children}: any) => {
 	const { marker } = useGeo();
 	const [ radius, setRadius ] = useState(1);
 
-	const createCircle = (center: any, radiusInKm: any, points: any) => {
+	const createFilter = (center: any, radiusInKm: any, points: any) => {
 	    if(!points) points = 64;
 
 	    const coords = { latitude: marker.latitude, longitude: marker.longitude };
@@ -43,15 +43,15 @@ export const CircleProvider = ({children}: any) => {
 	    };
 	};
 
-	const circleGeometry: any = createCircle([marker.longitude, marker.latitude], radius, 64);
+	const filterGeometry: any = createFilter([marker.longitude, marker.latitude], radius, 64);
 
 	return (
-		<CircleContext.Provider value={{ 
-			circleGeometry, setRadius 
+		<FilterContext.Provider value={{ 
+			filterGeometry, setRadius 
 		}}>
 			{children}
-		</CircleContext.Provider>
+		</FilterContext.Provider>
 	)
 }
 
-CircleContext.displayName = "CircleContext";
+FilterContext.displayName = "FilterContext";

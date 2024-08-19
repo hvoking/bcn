@@ -3,7 +3,7 @@ import { useState, useEffect, useContext, createContext } from 'react';
 
 // Context imports
 import { useGeo } from '../geo';
-import { useCircle } from '../circle';
+import { useFilter } from '../filter';
 
 const TilesContext: React.Context<any> = createContext(null)
 
@@ -15,39 +15,21 @@ export const useTiles = () => {
 
 export const TilesProvider = ({children}: any) => {
 	const { mapRef, marker } = useGeo();
-	const { circleGeometry } = useCircle();
+	const { filterGeometry } = useFilter();
 
-	const [ tilesProperties, setTilesProperties ] = useState<any>(null);
-	const [ withinProperties, setWithinProperties ] = useState<any>(null);
+	const [ maskProperties, setMaskProperties ] = useState<any>(null);
 
-	// useEffect(() => {
-	// 	const withinLayers = mapRef.current && mapRef.current.queryRenderedFeatures(circleGeometry);
-	// 	const filteredWithinLayers = mapRef.current && withinLayers.filter((item: any) => item.source === "raster-style");
-	// 	const featuresArray = mapRef.current && filteredWithinLayers.reduce((total: any, item: any) => {
-	// 		total.push(item.geometry);
-	// 		return total
-	// 	}, [])
-	// 	mapRef.current && setWithinProperties(featuresArray);
-	// }, [ marker ])
-
-	// const onClick = (e: any) => {
-	// 	const popupCoordinates = e.lngLat;
-	// 	const activeLayers = mapRef.current.queryRenderedFeatures(e.point);
-	// 	const filteredLayers = activeLayers.filter((item: any) => item.source === "raster-style");
-
-	// 	if (filteredLayers.length > 0) {
-	// 		const currentItem = filteredLayers[0];
-	// 		const properties = currentItem.properties;
-	// 		setTilesProperties({...properties, coordinates: popupCoordinates});	
-	// 	}
-	// 	else {
-	// 		setTilesProperties(null);	
-	// 	}
-	// }
+	useEffect(() => {
+		const map = mapRef.current;
+		if (!map) return;
+		const mapFeatures = map.queryRenderedFeatures(filterGeometry);
+		const filteredLayers = mapFeatures.filter((item: any) => item.source === "raster-style");
+		setMaskProperties(filteredLayers);
+	}, [ filterGeometry, marker, mapRef ]);
 
 	return (
 		<TilesContext.Provider value={{ 
-			tilesProperties, withinProperties
+			maskProperties
 		}}>
 			{children}
 		</TilesContext.Provider>
