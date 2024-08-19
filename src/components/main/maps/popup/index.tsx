@@ -2,10 +2,14 @@
 import { Description } from './description';
 import './styles.scss';
 
+// Context imports
+import { useTiles } from '../../../context/tiles'
+
 // Third-party imports
 import { Popup } from 'react-map-gl';
 
-export const CustomPopup: any = ({ tilesProperties }: any) => {
+export const CustomPopup: any = () => {
+  const { tilesProperties } = useTiles();
   const coordinates = tilesProperties?.coordinates;
 
   if (!coordinates) return <></>

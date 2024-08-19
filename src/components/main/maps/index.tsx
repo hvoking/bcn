@@ -3,32 +3,21 @@ import { Controllers } from './controllers';
 import { Wrapper } from './wrapper';
 import { CustomPopup } from './popup';
 import { Tiles } from './tiles';
-import { CircleLayer } from './circle';
+import { Circle } from './circle';
+import { Mask } from './mask';
+import { Pin } from './pin';
 
 // Context imports
-import { useGeo } from '../../context/filters/geo';
+import { useTiles } from '../../context/tiles';
+import { useGeo } from '../../context/geo';
 
 // Third-party imports
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Map } from 'react-map-gl';
 
 export const Maps = () => {
-	const { mapStyle, mapRef, viewport, tilesProperties, setTilesProperties } = useGeo();
-
-	const onClick = (e: any) => {
-		const popupCoordinates = e.lngLat;
-		const activeLayers = mapRef.current.queryRenderedFeatures(e.point);
-		const filteredLayers = activeLayers.filter((item: any) => item.source === "raster-style");
-
-		if (filteredLayers.length > 0) {
-			const currentItem = filteredLayers[0];
-			const properties = currentItem.properties;
-			setTilesProperties({...properties, coordinates: popupCoordinates});	
-		}
-		else {
-			setTilesProperties(null);	
-		}
-	}
+	const { onClick } = useTiles();
+	const { viewport, mapRef, mapStyle } = useGeo();
 
 	return (
 		<Wrapper>
@@ -39,10 +28,12 @@ export const Maps = () => {
 				mapStyle={mapStyle}
 				onClick={onClick}
 			>
-				<CircleLayer/>
-				<Controllers/>
 				<Tiles/>
-				<CustomPopup tilesProperties={tilesProperties}/>
+				{/*<Circle/>*/}
+				<Mask/>
+				<CustomPopup/>
+				<Controllers/>
+				<Pin/>
 			</Map>
 		</Wrapper>
 	)

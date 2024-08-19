@@ -1,11 +1,11 @@
 // App imports
 import './styles.scss';
 
+// Context imports
+import { useGeo } from '../../../context/geo';
+
 // Third party imports
 import { NavigationControl, FullscreenControl, GeolocateControl } from 'react-map-gl';
-
-// Context imports
-import { useGeo } from '../../../context/filters/geo';
 
 export const Controllers = () => {
 	const { navControlStyle } = useGeo();

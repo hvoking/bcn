@@ -1,17 +1,11 @@
-// App imports
-import { createCircle } from '../../utils/circle';
-
 // Context imports
-import { useGeo } from '../../../context/filters/geo';
+import { useCircle } from '../../../context/circle';
 
 // Third party imports
 import { Source, Layer, LayerProps } from 'react-map-gl';
 
-// The CircleLayer component
-export const CircleLayer = () => {
-    const { viewport } = useGeo();
-
-    const circleGeometry: any = createCircle([viewport.longitude, viewport.latitude], 1, 64);
+export const Circle = () => {
+    const { circleGeometry } = useCircle();
 
     const circleLayer: LayerProps = {
         id: 'circle',
@@ -24,10 +18,14 @@ export const CircleLayer = () => {
     };
 
     return (
-        <Source id="polygon" type="geojson" data={circleGeometry}>
-            <Layer {...circleLayer} />
+        <Source 
+            id="polygon" 
+            type="geojson" 
+            data={circleGeometry}
+        >
+            <Layer {...circleLayer}/>
         </Source>
     );
 };
 
-CircleLayer.displayName = "CircleLayer";
+Circle.displayName = "Circle";

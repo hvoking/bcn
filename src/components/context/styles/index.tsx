@@ -1,15 +1,15 @@
 // React imports
 import { useState, useEffect, useContext, createContext } from 'react';
 
-const StyleContext: React.Context<any> = createContext(null)
+const StylesContext: React.Context<any> = createContext(null)
 
-export const useStyle = () => {
+export const useStyles = () => {
 	return (
-		useContext(StyleContext)
+		useContext(StylesContext)
 	)
 }
 
-export const StyleProvider = ({children}: any) => {
+export const StylesProvider = ({children}: any) => {
 	const [ styleData, setStyleData ] = useState<any[]>([]);
 	const [ styleName, setStyleName ] = useState("barcelona");
 
@@ -29,10 +29,10 @@ export const StyleProvider = ({children}: any) => {
 	}, [ styleName ])
 
 	return (
-		<StyleContext.Provider value={{ styleData, styleName, setStyleName }}>
+		<StylesContext.Provider value={{ styleData, styleName, setStyleName }}>
 			{children}
-		</StyleContext.Provider>
+		</StylesContext.Provider>
 	)
 }
 
-StyleContext.displayName = "StyleContext";
+StylesContext.displayName = "StylesContext";
