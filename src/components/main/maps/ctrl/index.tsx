@@ -7,7 +7,7 @@ import { useGeo } from '../../../context/geo';
 // Third party imports
 import { NavigationControl, FullscreenControl, GeolocateControl } from 'react-map-gl';
 
-export const Controllers = () => {
+export const Ctrl = () => {
 	const { navControlStyle } = useGeo();
 	
 	return (
@@ -19,4 +19,4 @@ export const Controllers = () => {
 	)
 }
 
-Controllers.displayName="Controllers";
+Ctrl.displayName="Ctrl";

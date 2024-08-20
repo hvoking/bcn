@@ -13,7 +13,7 @@ export const useMaps = () => {
 }
 
 export const MapsProvider = ({children}: any) => {
-		const { viewport, mapRef, mapStyle, marker, setMarker } = useGeo();
+		const { mapRef, marker, setMarker } = useGeo();
 		const [ isDragging, setIsDragging ] = useState(false);
 		const [ dragOffset, setDragOffset ] = useState({ x: 0, y: 0 });
 

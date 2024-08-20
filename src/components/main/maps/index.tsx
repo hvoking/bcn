@@ -1,9 +1,10 @@
 // App imports
-import { Controllers } from './controllers';
-import { Wrapper } from './wrapper';
-import { Tiles } from './tiles';
+import { Ctrl } from './ctrl';
 import { Filter } from './filter';
+import { Mask } from './mask';
 import { Pin } from './pin';
+import { Tiles } from './tiles';
+import { Wrapper } from './wrapper';
 
 // Context imports
 import { useGeo } from '../../context/geo';
@@ -14,7 +15,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Map } from 'react-map-gl';
 
 export const Maps = () => {
-	const { viewport, mapRef, mapStyle, marker, setMarker } = useGeo();
+	const { viewport, mapRef, mapStyle } = useGeo();
     const { isDragging, onDragStart, onMouseMove, onDragEnd } = useMaps();
 
 	return (
@@ -31,7 +32,8 @@ export const Maps = () => {
 			>
 				<Tiles/>
 				<Filter/>
-				<Controllers/>
+				<Ctrl/>
+				<Mask/>
 				<Pin/>
 			</Map>
 		</Wrapper>

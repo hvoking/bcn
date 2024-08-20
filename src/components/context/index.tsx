@@ -1,7 +1,7 @@
 import { GeoProvider } from './geo';
 import { StylesProvider } from './styles';
 import { FilterProvider } from './filter';
-import { TilesProvider } from './tiles';
+import { MaskProvider } from './mask';
 import { MapsProvider } from './maps';
 
 export const MainProvider = ({children}: any) => {
@@ -10,9 +10,9 @@ export const MainProvider = ({children}: any) => {
     <MapsProvider>
     <StylesProvider>
     <FilterProvider>
-    <TilesProvider>
+    <MaskProvider>
       {children}
-    </TilesProvider>
+    </MaskProvider>
     </FilterProvider>
     </StylesProvider>
     </MapsProvider>

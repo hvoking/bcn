@@ -5,35 +5,38 @@ import { useState, useEffect, useContext, createContext } from 'react';
 import { useGeo } from '../geo';
 import { useFilter } from '../filter';
 
-const TilesContext: React.Context<any> = createContext(null)
+const MaskContext: React.Context<any> = createContext(null)
 
-export const useTiles = () => {
+export const useMask = () => {
 	return (
-		useContext(TilesContext)
+		useContext(MaskContext)
 	)
 }
 
-export const TilesProvider = ({children}: any) => {
+export const MaskProvider = ({children}: any) => {
 	const { mapRef, marker } = useGeo();
-	const { filterGeometry } = useFilter();
+	const { circleGeometry } = useFilter();
 
 	const [ maskProperties, setMaskProperties ] = useState<any>(null);
 
 	useEffect(() => {
 		const map = mapRef.current;
+
 		if (!map) return;
-		const mapFeatures = map.queryRenderedFeatures(filterGeometry);
+
+		const mapFeatures = map.queryRenderedFeatures(circleGeometry);
 		const filteredLayers = mapFeatures.filter((item: any) => item.source === "raster-style");
+
 		setMaskProperties(filteredLayers);
-	}, [ filterGeometry, marker, mapRef ]);
+	}, [ circleGeometry, marker, mapRef ]);
 
 	return (
-		<TilesContext.Provider value={{ 
+		<MaskContext.Provider value={{ 
 			maskProperties
 		}}>
 			{children}
-		</TilesContext.Provider>
+		</MaskContext.Provider>
 	)
 }
 
-TilesContext.displayName = "TilesContext";
+MaskContext.displayName = "MaskContext";

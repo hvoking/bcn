@@ -5,7 +5,7 @@ import { useFilter } from '../../../context/filter';
 import { Source, Layer, LayerProps } from 'react-map-gl';
 
 export const Filter = () => {
-    const { filterGeometry } = useFilter();
+    const { circleGeometry } = useFilter();
 
     const circleLayer: LayerProps = {
         id: 'layer-mask',
@@ -21,7 +21,7 @@ export const Filter = () => {
         <Source 
             id="polygon" 
             type="geojson" 
-            data={filterGeometry}
+            data={circleGeometry}
         >
             <Layer 
                 {...circleLayer}

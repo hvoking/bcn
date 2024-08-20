@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 // App imports
-import { Arrow } from '../../../utils/arrow';
+import { Arrow } from './arrow';
 import { Suggestions } from './suggestions';
 import './styles.scss';
 

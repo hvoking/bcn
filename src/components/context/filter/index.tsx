@@ -16,7 +16,7 @@ export const FilterProvider = ({children}: any) => {
 	const { marker } = useGeo();
 	const [ radius, setRadius ] = useState(1);
 
-	const createFilter = (center: any, radiusInKm: any, points: any) => {
+	const createCircle = (center: any, radiusInKm: any, points: any) => {
 	    if(!points) points = 64;
 
 	    const coords = { latitude: marker.latitude, longitude: marker.longitude };
@@ -43,11 +43,11 @@ export const FilterProvider = ({children}: any) => {
 	    };
 	};
 
-	const filterGeometry: any = createFilter([marker.longitude, marker.latitude], radius, 64);
+	const circleGeometry: any = createCircle([marker.longitude, marker.latitude], radius, 64);
 
 	return (
 		<FilterContext.Provider value={{ 
-			filterGeometry, setRadius 
+			circleGeometry, setRadius
 		}}>
 			{children}
 		</FilterContext.Provider>
