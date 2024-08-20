@@ -5,6 +5,9 @@ import { useState, useEffect, useContext, createContext } from 'react';
 import { useGeo } from '../geo';
 import { useFilter } from '../filter';
 
+// Third-party imports
+import * as turf from '@turf/turf';
+
 const MaskContext: React.Context<any> = createContext(null)
 
 export const useMask = () => {
@@ -23,11 +26,19 @@ export const MaskProvider = ({children}: any) => {
 		const map = mapRef.current;
 
 		if (!map) return;
+		
+		const mapFeatures = map.queryRenderedFeatures();
 
-		const mapFeatures = map.queryRenderedFeatures(circleGeometry);
-		const filteredLayers = mapFeatures.filter((item: any) => item.source === "raster-style");
+        const filteredLayers = mapFeatures.filter((item: any) => {
+            if (item.source === "raster-style") {
+                const featureGeometry = item.geometry;
+                const featurePolygon = turf.polygon(featureGeometry.coordinates);
+                return turf.booleanIntersects(circleGeometry, featurePolygon);
+            }
+            return false;
+        });
 
-		setMaskProperties(filteredLayers);
+        setMaskProperties(filteredLayers);
 	}, [ circleGeometry, marker, mapRef ]);
 
 	return (
