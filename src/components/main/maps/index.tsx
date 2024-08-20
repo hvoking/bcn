@@ -1,6 +1,6 @@
 // App imports
 import { Ctrl } from './ctrl';
-import { Filter } from './filter';
+import { Circle } from './circle';
 import { Mask } from './mask';
 import { Pin } from './pin';
 import { Tiles } from './tiles';
@@ -31,7 +31,7 @@ export const Maps = () => {
                 dragPan={!isDragging}
 			>
 				<Tiles/>
-				<Filter/>
+				<Circle/>
 				<Ctrl/>
 				<Mask/>
 				<Pin/>

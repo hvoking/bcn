@@ -3,7 +3,7 @@ import { useState, useEffect, useContext, createContext } from 'react';
 
 // Context imports
 import { useGeo } from '../geo';
-import { useFilter } from '../filter';
+import { useCircle } from '../circle';
 
 // Third-party imports
 import * as turf from '@turf/turf';
@@ -18,7 +18,7 @@ export const useMask = () => {
 
 export const MaskProvider = ({children}: any) => {
 	const { mapRef, marker } = useGeo();
-	const { circleGeometry } = useFilter();
+	const { circleGeometry } = useCircle();
 
 	const [ maskProperties, setMaskProperties ] = useState<any>(null);
 
@@ -32,8 +32,8 @@ export const MaskProvider = ({children}: any) => {
         const filteredLayers = mapFeatures.filter((item: any) => {
             if (item.source === "raster-style") {
                 const featureGeometry = item.geometry;
-                const featurePolygon = turf.polygon(featureGeometry.coordinates);
-                return turf.booleanIntersects(circleGeometry, featurePolygon);
+                const featureCentroid = turf.centroid(featureGeometry);
+                return turf.booleanPointInPolygon(featureCentroid, circleGeometry);
             }
             return false;
         });
