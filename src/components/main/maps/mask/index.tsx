@@ -1,25 +1,36 @@
 // Context imports
 import { useMask } from '../../../context/mask';
-import { useStyles } from '../../../context/styles';
 
 // Third party imports
 import { Source, Layer } from 'react-map-gl';
 
 export const Mask = () => {
 	const { maskProperties } = useMask();
-	const { styleData } = useStyles();
-	
+
 	if (!maskProperties) return <></>
 
-	const features = maskProperties.map((item: any) => ({
-		type: "Feature",
-		geometry: item.geometry,
-		properties: item.properties || {}  // Optionally include properties
-	}));
+	const features = maskProperties.filter((item: any) => {
+        const stringList = Object.keys(item.layer.paint);
+        return stringList.includes("fill-color");
+    })
+		
+	const updatedFeatures = features.map((item: any) => {
+		const { r, g, b, a } = item.layer.paint["fill-color"];
+		const fillColor = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
 	
+		return ({
+			type: "Feature",
+			geometry: item.geometry,
+			properties: {
+				...item.properties, 
+				'fill-color': fillColor
+			}
+		})
+	});
+		
 	const geoJsonData: any = {
         "type": "FeatureCollection",
-        "features": features
+        "features": updatedFeatures
     };
 
 	return (
@@ -28,8 +39,8 @@ export const Mask = () => {
 	          id="extruded-polygons"
 	          type="fill-extrusion"
 	          paint={{
-	            'fill-extrusion-color': '#007cbf',
-	            'fill-extrusion-height': 30,
+	            'fill-extrusion-color': ['get', 'fill-color'],
+	            'fill-extrusion-height': ['*', ['get', 'indice_fin'], 1000],
 	            'fill-extrusion-base': 0,
 	            'fill-extrusion-opacity': 0.8
 	          }}

@@ -2,7 +2,6 @@
 import { Ctrl } from './ctrl';
 import { Circle } from './circle';
 import { Mask } from './mask';
-import { Pin } from './pin';
 import { Tiles } from './tiles';
 import { Wrapper } from './wrapper';
 
@@ -28,13 +27,15 @@ export const Maps = () => {
 				onMouseDown={onDragStart}
                 onMouseMove={onMouseMove}
                 onMouseUp={onDragEnd}
+                onTouchStart={onDragStart}
+                onTouchMove={onMouseMove}
+                onTouchEnd={onDragEnd}
                 dragPan={!isDragging}
 			>
 				<Tiles/>
 				<Circle/>
 				<Ctrl/>
 				<Mask/>
-				<Pin/>
 			</Map>
 		</Wrapper>
 	)
