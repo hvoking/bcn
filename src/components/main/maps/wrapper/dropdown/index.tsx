@@ -7,11 +7,11 @@ import { Suggestions } from './suggestions';
 import './styles.scss';
 
 // Context imports
-import { useGeo } from '../../../../context/geo';
+import { useMapProperties } from '../../../../context/maps/properties';
 import { useStyles } from '../../../../context/styles';
 
 export const Dropdown = () => {
-	const { cityName, setCityName, Locations, viewport, setViewport } = useGeo();
+	const { cityName, setCityName, Locations, viewport, setViewport } = useMapProperties();
 	const { setStyleName } = useStyles();
 
 	const [ suggestions, setSuggestions ] = useState(['Barcelona', 'Madrid', 'Mallorca']);

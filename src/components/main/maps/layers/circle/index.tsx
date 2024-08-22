@@ -1,5 +1,5 @@
 // Context imports
-import { useCircle } from '../../../context/circle';
+import { useCircle } from '../../../../context/circle';
 
 // Third party imports
 import { Source, Layer, LayerProps } from 'react-map-gl';
@@ -12,7 +12,7 @@ export const Circle = () => {
         type: 'fill',
         source: 'polygon',
         paint: {
-            "fill-color": "blue",
+            "fill-color": "rgb(0, 0, 255)",
             "fill-opacity": 0.2
         }
     };
@@ -23,9 +23,7 @@ export const Circle = () => {
             type="geojson" 
             data={circleGeometry}
         >
-            <Layer 
-                {...circleLayer}
-            />
+            <Layer {...circleLayer}/>
         </Source>
     );
 };

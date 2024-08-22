@@ -4,15 +4,15 @@ import { useState, useEffect, useRef, useContext, createContext } from 'react';
 // App imports
 import * as Locations from './locations';
 
-const GeoContext: React.Context<any> = createContext(null);
+const MapPropertiesContext: React.Context<any> = createContext(null);
 
-export const useGeo = () => {
+export const useMapProperties = () => {
 	return (
-		useContext(GeoContext)
+		useContext(MapPropertiesContext)
 	)
 }
 
-export const GeoProvider = ({children}: any) => {
+export const MapPropertiesProvider = ({children}: any) => {
 	const mapRef = useRef<any>();
 
 	const [ cityName, setCityName ] = useState<any>("barcelona");
@@ -40,7 +40,7 @@ export const GeoProvider = ({children}: any) => {
 	}, [viewport]);
 	
 	return (
-		<GeoContext.Provider value={{
+		<MapPropertiesContext.Provider value={{
 			mapStyle,
 			cityName, setCityName, 
 			mapRef, Locations, 
@@ -50,8 +50,8 @@ export const GeoProvider = ({children}: any) => {
 			marker, setMarker
 		}}>
 			{children}
-		</GeoContext.Provider>
+		</MapPropertiesContext.Provider>
 	)
 }
 
-GeoContext.displayName = "GeoContext";
+MapPropertiesContext.displayName = "MapPropertiesContext";

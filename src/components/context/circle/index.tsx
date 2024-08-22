@@ -2,7 +2,7 @@
 import { useState, useContext, createContext } from 'react';
 
 // Context imports
-import { useGeo } from '../geo';
+import { useMapProperties } from '../maps/properties';
 
 const CircleContext: React.Context<any> = createContext(null);
 
@@ -13,7 +13,7 @@ export const useCircle = () => {
 }
 
 export const CircleProvider = ({children}: any) => {
-	const { marker } = useGeo();
+	const { marker } = useMapProperties();
 	const [ radius, setRadius ] = useState(1);
 
 	const createCircle = (center: any, radiusInKm: any, points: any) => {

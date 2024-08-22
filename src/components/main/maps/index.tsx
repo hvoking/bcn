@@ -1,21 +1,19 @@
 // App imports
-import { Ctrl } from './ctrl';
-import { Circle } from './circle';
-import { Mask } from './mask';
-import { Tiles } from './tiles';
 import { Wrapper } from './wrapper';
+import { Handlers } from './handlers';
+import { Layers } from './layers';
 
 // Context imports
-import { useGeo } from '../../context/geo';
-import { useMaps } from '../../context/maps';
+import { useMapProperties } from '../../context/maps/properties';
+import { useMapEvents } from '../../context/maps/events';
 
 // Third-party imports
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Map } from 'react-map-gl';
 
 export const Maps = () => {
-	const { viewport, mapRef, mapStyle } = useGeo();
-    const { isDragging, onDragStart, onMouseMove, onDragEnd } = useMaps();
+	const { viewport, mapRef, mapStyle } = useMapProperties();
+    const { isDragging, onDragStart, onMouseMove, onDragEnd } = useMapEvents();
 
 	return (
 		<Wrapper>
@@ -31,11 +29,9 @@ export const Maps = () => {
                 onTouchMove={onMouseMove}
                 onTouchEnd={onDragEnd}
                 dragPan={!isDragging}
-			>
-				<Tiles/>
-				<Circle/>
-				<Ctrl/>
-				<Mask/>
+			>	
+				<Handlers/>
+				<Layers/>
 			</Map>
 		</Wrapper>
 	)

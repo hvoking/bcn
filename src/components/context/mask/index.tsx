@@ -2,7 +2,7 @@
 import { useState, useEffect, useContext, createContext } from 'react';
 
 // Context imports
-import { useGeo } from '../geo';
+import { useMapProperties } from '../maps/properties';
 import { useCircle } from '../circle';
 
 // Third-party imports
@@ -17,7 +17,7 @@ export const useMask = () => {
 }
 
 export const MaskProvider = ({children}: any) => {
-	const { mapRef, marker } = useGeo();
+	const { mapRef, marker } = useMapProperties();
 	const { circleGeometry } = useCircle();
 
 	const [ maskProperties, setMaskProperties ] = useState<any>(null);

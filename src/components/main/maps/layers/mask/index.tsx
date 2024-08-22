@@ -1,5 +1,5 @@
 // Context imports
-import { useMask } from '../../../context/mask';
+import { useMask } from '../../../../context/mask';
 
 // Third party imports
 import { Source, Layer } from 'react-map-gl';
@@ -12,7 +12,7 @@ export const Mask = () => {
 	const features = maskProperties.filter((item: any) => {
         const stringList = Object.keys(item.layer.paint);
         return stringList.includes("fill-color");
-    })
+    });
 		
 	const updatedFeatures = features.map((item: any) => {
 		const { r, g, b, a } = item.layer.paint["fill-color"];
