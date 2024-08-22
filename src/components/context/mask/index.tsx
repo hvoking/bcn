@@ -1,5 +1,5 @@
 // React imports
-import { useState, useEffect, useContext, createContext } from 'react';
+import { useState, useEffect, useMemo, useContext, createContext } from 'react';
 
 // Context imports
 import { useMapProperties } from '../maps/properties';
@@ -17,18 +17,19 @@ export const useMask = () => {
 }
 
 export const MaskProvider = ({children}: any) => {
-	const { mapRef, marker } = useMapProperties();
+	const { mapRef } = useMapProperties();
 	const { circleGeometry } = useCircle();
 
 	const [ maskProperties, setMaskProperties ] = useState<any>(null);
 
-	useEffect(() => {
+	const mapFeatures = useMemo(() => {
 		const map = mapRef.current;
+		if (!map) return [];
 
-		if (!map) return;
-		
-		const mapFeatures = map.queryRenderedFeatures();
+		return map.queryRenderedFeatures();
+	}, [ mapRef.current ]);
 
+	useEffect(() => {
         const filteredLayers = mapFeatures.filter((item: any) => {
             if (item.source === "raster-style") {
                 const featureGeometry = item.geometry;
@@ -39,12 +40,10 @@ export const MaskProvider = ({children}: any) => {
         });
 
         setMaskProperties(filteredLayers);
-	}, [ circleGeometry, marker, mapRef ]);
+	}, [ circleGeometry, mapRef ]);
 
 	return (
-		<MaskContext.Provider value={{ 
-			maskProperties
-		}}>
+		<MaskContext.Provider value={{ maskProperties }}>
 			{children}
 		</MaskContext.Provider>
 	)
