@@ -4,26 +4,31 @@ import { useMask } from '../../../../context/mask';
 // Third party imports
 import { Source, Layer } from 'react-map-gl';
 
+const getColor = (item: any) => {
+	const { r, g, b, a } = item;
+	const color = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
+	return color
+}
+
 export const Mask = () => {
 	const { maskProperties } = useMask();
 
 	if (!maskProperties) return <></>
 
+	// Filter by fill color
 	const features = maskProperties.filter((item: any) => {
         const stringList = Object.keys(item.layer.paint);
         return stringList.includes("fill-color");
     });
-		
+
 	const updatedFeatures = features.map((item: any) => {
-		const { r, g, b, a } = item.layer.paint["fill-color"];
-		const fillColor = `rgba(${r * 255}, ${g * 255}, ${b * 255}, ${a})`;
-	
+		const currentColor = getColor(item.layer.paint["fill-color"]);
 		return ({
 			type: "Feature",
 			geometry: item.geometry,
 			properties: {
 				...item.properties, 
-				'fill-color': fillColor
+				'fill-color': currentColor
 			}
 		})
 	});
