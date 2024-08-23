@@ -1,5 +1,5 @@
 // React imports
-import { useState, useEffect, useContext, createContext } from 'react';
+import { useState, useEffect, useMemo, useContext, createContext } from 'react';
 
 // Context imports
 import { useMapProperties } from '../maps/properties';
@@ -21,37 +21,26 @@ export const MaskProvider = ({children}: any) => {
 	const { circleGeometry } = useCircle();
 
 	const [ maskProperties, setMaskProperties ] = useState<any>(null);
-	const [ mapFeatures, setMapFeatures ] = useState<any>(null);
 
-	const updateMapFeatures = () => {
-		if (!mapRef.current) return;
-		const features = mapRef.current.queryRenderedFeatures();
-		setMapFeatures(features);
-	};
+	const mapFeatures = useMemo(() => {
+		const map = mapRef.current;
+		if (!map) return;
+		return map.queryRenderedFeatures();
+	}, [mapRef.current]);
 
 	useEffect(() => {
-		if (!mapRef.current) return;
-
-		updateMapFeatures();
-
-		mapRef.current.on('data', (e: any) => {
-			if (e.sourceId && e.source.type === 'vector' && e.tile) {
-				updateMapFeatures();
-			}
+		if (!mapFeatures) return;
+		const filteredLayers = mapFeatures.filter((item: any) => {
+			if (item.source === 'raster-style') {
+				const featureGeometry = item.geometry;
+				const featureCentroid = turf.centroid(featureGeometry);
+				return turf.booleanPointInPolygon(featureCentroid, circleGeometry);
+			}	
+			return false;
 		});
-	}, [ mapRef.current ]);
 
-	useEffect(() => {
-        const filteredLayers = mapFeatures?.filter((item: any) => {
-            if (item.source === "raster-style") {
-                const featureGeometry = item.geometry;
-                const featureCentroid = turf.centroid(featureGeometry);
-                return turf.booleanPointInPolygon(featureCentroid, circleGeometry);
-            }
-            return false;
-        });
-        mapFeatures && setMaskProperties(filteredLayers);
-	}, [ circleGeometry, mapFeatures ]);
+		setMaskProperties(filteredLayers);
+	}, [circleGeometry, mapFeatures]);
 
 	return (
 		<MaskContext.Provider value={{ maskProperties }}>
