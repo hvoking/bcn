@@ -20,7 +20,6 @@ export const MaskProvider = ({children}: any) => {
 	const { mapRef } = useMapProperties();
 	const { circleGeometry } = useCircle();
 
-	const [ maskProperties, setMaskProperties ] = useState<any>(null);
 	const [activeFeatures, setActiveFeatures] = useState(false);
 
 	useEffect(() => {
@@ -40,19 +39,14 @@ export const MaskProvider = ({children}: any) => {
 		return map.queryRenderedFeatures();
 	}, [activeFeatures, mapRef.current]);
 
-	useEffect(() => {
-		if (!mapFeatures) return;
-		const filteredLayers = mapFeatures.filter((item: any) => {
-			if (item.source === 'raster-style') {
-				const featureGeometry = item.geometry;
-				const featureCentroid = turf.centroid(featureGeometry);
-				return turf.booleanPointInPolygon(featureCentroid, circleGeometry);
-			}	
-			return false;
-		});
-
-		setMaskProperties(filteredLayers);
-	}, [circleGeometry, mapFeatures]);
+	const maskProperties = mapFeatures.filter((item: any) => {
+		if (item.source === 'raster-style') {
+			const featureGeometry = item.geometry;
+			const featureCentroid = turf.centroid(featureGeometry);
+			return turf.booleanPointInPolygon(featureCentroid, circleGeometry);
+		}	
+		return false;
+	});
 
 	return (
 		<MaskContext.Provider value={{ maskProperties }}>
