@@ -20,33 +20,40 @@ export const MaskProvider = ({children}: any) => {
 	const { mapRef } = useMapProperties();
 	const { circleGeometry } = useCircle();
 
+	const [mapFeatures, setMapFeatures] = useState([]);
 	const [activeFeatures, setActiveFeatures] = useState(false);
 
 	useEffect(() => {
 		const map = mapRef.current;
 		if (!map) return;
+		const onData = (e: any) => {
+	        if (e.tile) {
+	            setActiveFeatures((prev) => !prev);
+	        }
+	    };
 
-		map.on('data', (e: any) => {
-			if (e.sourceId && e.source.type === 'vector' && e.tile) {
-				setActiveFeatures((prev) => !prev);
-			}
-		});
+	    map.on('data', onData);
+
+	    return () => {
+	        map.off('data', onData);
+	    };
 	}, [mapRef.current]);
 
-	const mapFeatures = useMemo(() => {
+	useEffect(() => {
 		const map = mapRef.current;
-		if (!map) return [];
-		return map.queryRenderedFeatures();
+		if (!map) return;
+		setMapFeatures(map.queryRenderedFeatures());
 	}, [activeFeatures, mapRef.current]);
 
-	const maskProperties = mapFeatures.filter((item: any) => {
-		if (item.source === 'raster-style') {
-			const featureGeometry = item.geometry;
-			const featureCentroid = turf.centroid(featureGeometry);
-			return turf.booleanPointInPolygon(featureCentroid, circleGeometry);
-		}	
-		return false;
-	});
+	const maskProperties = useMemo(() => {
+	    return mapFeatures.filter((item: any) => {
+	        if (item.source === 'raster-style') {
+	            const featureGeometry = item.geometry;
+	            const featureCentroid = turf.centroid(featureGeometry);
+	            return turf.booleanPointInPolygon(featureCentroid, circleGeometry);
+	        }
+	    });
+	}, [mapFeatures, circleGeometry]);
 
 	return (
 		<MaskContext.Provider value={{ maskProperties }}>
