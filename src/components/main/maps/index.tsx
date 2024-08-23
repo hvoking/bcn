@@ -1,7 +1,7 @@
 // App imports
 import { Wrapper } from './wrapper';
-import { Handlers } from './handlers';
 import { Layers } from './layers';
+import { Navigation } from './nav';
 
 // Context imports
 import { useMapProperties } from '../../context/maps/properties';
@@ -30,8 +30,8 @@ export const Maps = () => {
                 onTouchEnd={onDragEnd}
                 dragPan={!isDragging}
 			>	
-				<Handlers/>
 				<Layers/>
+				<Navigation/>
 			</Map>
 		</Wrapper>
 	)
