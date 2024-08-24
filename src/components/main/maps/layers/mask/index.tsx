@@ -47,7 +47,7 @@ export const Mask = () => {
 	            'fill-extrusion-color': ['get', 'fill-color'],
 	            'fill-extrusion-height': ['*', ['get', 'indice_fin'], 1000],
 	            'fill-extrusion-base': 0,
-	            'fill-extrusion-opacity': 0.8
+	            'fill-extrusion-opacity': 0.9
 	          }}
 	        />
 	      </Source>

@@ -2,7 +2,7 @@
 import './styles.scss';
 
 // Third party imports
-import { NavigationControl, FullscreenControl, GeolocateControl } from 'react-map-gl';
+import { NavigationControl, FullscreenControl } from 'react-map-gl';
 
 export const Navigation = () => {
 	return (
