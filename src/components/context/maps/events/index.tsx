@@ -14,6 +14,7 @@ export const useMapEvents = () => {
 
 export const MapEventsProvider = ({children}: any) => {
 		const { mapRef, marker, setMarker } = useMapProperties();
+		
 		const [ isDragging, setIsDragging ] = useState(false);
 		const [ dragOffset, setDragOffset ] = useState({ x: 0, y: 0 });
 
