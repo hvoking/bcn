@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react';
 import { useMapProperties } from '../../../context/maps/properties';
 
 // Third-party imports
-import { Marker } from 'react-map-gl';
+import { Marker, useMap } from 'react-map-gl';
 
 export const Character = () => {
-	const { viewport, marker, setMarker } = useMapProperties();
+	const { viewport, marker, setMarker, mapRef } = useMapProperties();
 
     const [direction, setDirection] = useState('down');
     const [step, setStep] = useState(0);
@@ -64,28 +64,36 @@ export const Character = () => {
 		}; 
 	}, [marker]);
 
-		const getBackgroundPosition = () => {
-	        let xOffset = step * -64;
-	        let yOffset = 0;
+	useEffect(() => {
+        mapRef.current?.flyTo({
+            center: [marker.longitude, marker.latitude],
+            essential: true,
+            duration: 300,
+        });
+    }, [marker, mapRef.current]);
 
-	        switch (direction) {
-	            case 'down':
-	                yOffset = 0;
-	                break;
-	            case 'left':
-	                yOffset = -64;
-	                break;
-	            case 'right':
-	                yOffset = -128;
-	                break;
-	            case 'up':
-	                yOffset = -192;
-	                break;
-	            default:
-	                break;
-	        }
-	        return `${xOffset}px ${yOffset}px`;
-	    };
+	const getBackgroundPosition = () => {
+        let xOffset = step * -64;
+        let yOffset = 0;
+
+        switch (direction) {
+            case 'down':
+                yOffset = 0;
+                break;
+            case 'left':
+                yOffset = -64;
+                break;
+            case 'right':
+                yOffset = -128;
+                break;
+            case 'up':
+                yOffset = -192;
+                break;
+            default:
+                break;
+        }
+        return `${xOffset}px ${yOffset}px`;
+    };
 	return (
 		<Marker
             latitude={marker.latitude}
