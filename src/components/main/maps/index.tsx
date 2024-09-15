@@ -2,10 +2,11 @@
 import { Wrapper } from './wrapper';
 import { Layers } from './layers';
 import { Navigation } from './nav';
+import { Character } from './character';
 
 // Context imports
 import { useMapProperties } from '../../context/maps/properties';
-import { useMapEvents } from '../../context/maps/events';
+import { useMouseEvents } from '../../context/maps/events';
 
 // Third-party imports
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -13,7 +14,7 @@ import { Map } from 'react-map-gl';
 
 export const Maps = () => {
 	const { viewport, mapRef, mapStyle } = useMapProperties();
-    const { isDragging, onDragStart, onMouseMove, onDragEnd } = useMapEvents();
+    const { isDragging, onDragStart, onMouseMove, onDragEnd } = useMouseEvents();
 
 	return (
 		<Wrapper>
@@ -30,6 +31,7 @@ export const Maps = () => {
                 onTouchEnd={onDragEnd}
                 dragPan={!isDragging}
 			>	
+				<Character/>
 				<Layers/>
 				<Navigation/>
 			</Map>

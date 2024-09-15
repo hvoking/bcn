@@ -4,15 +4,15 @@ import { useState, useCallback, useContext, createContext } from 'react';
 // App imports
 import { useMapProperties } from '../../maps/properties';
 
-const MapEventsContext: React.Context<any> = createContext(null);
+const MouseEventsContext: React.Context<any> = createContext(null);
 
-export const useMapEvents = () => {
+export const useMouseEvents = () => {
 	return (
-		useContext(MapEventsContext)
+		useContext(MouseEventsContext)
 	)
 }
 
-export const MapEventsProvider = ({children}: any) => {
+export const MouseEventsProvider = ({children}: any) => {
 		const { mapRef, marker, setMarker } = useMapProperties();
 		
 		const [ isDragging, setIsDragging ] = useState(false);
@@ -61,15 +61,15 @@ export const MapEventsProvider = ({children}: any) => {
 	    }, []);
 
 	return (
-		<MapEventsContext.Provider value={{
+		<MouseEventsContext.Provider value={{
 			isDragging,
 			onDragStart,
 			onMouseMove,
 			onDragEnd,
 		}}>
 			{children}
-		</MapEventsContext.Provider>
+		</MouseEventsContext.Provider>
 	)
 }
 
-MapEventsContext.displayName = "MapEventsContext";
+MouseEventsContext.displayName = "MouseEventsContext";
