@@ -57,10 +57,19 @@ export const MaskProvider = ({children}: any) => {
 	            return turf.booleanPointInPolygon(featureCentroid, circleGeometry);
 	        }
 	    });
-	}, [mapFeatures, circleGeometry]);
+	}, [ mapFeatures, circleGeometry ]);
+
+	const sanitaryEquipments = useMemo(() => {
+	    return mapFeatures.filter((item: any) => {
+	        if (item.source === 'sanitary-equipments') {
+	            const featureGeometry = item.geometry;
+	            return turf.booleanPointInPolygon(featureGeometry, circleGeometry);
+	        }
+	    });
+	}, [ mapFeatures, circleGeometry ]);
 
 	return (
-		<MaskContext.Provider value={{ maskProperties }}>
+		<MaskContext.Provider value={{ maskProperties, sanitaryEquipments }}>
 			{children}
 		</MaskContext.Provider>
 	)

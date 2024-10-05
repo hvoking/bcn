@@ -2,16 +2,16 @@
 import { useState, useEffect } from 'react';
 
 // Context imports
-import { useMapProperties } from '../../../context/maps/properties';
+import { useMapProperties } from '../../context/maps/properties';
 
 // Third-party imports
-import { Marker, useMap } from 'react-map-gl';
+import { Marker } from 'react-map-gl';
 
-export const Character = () => {
-	const { viewport, marker, setMarker, mapRef } = useMapProperties();
+export const Avatar = () => {
+	const { marker, setMarker, mapRef } = useMapProperties();
 
-    const [direction, setDirection] = useState('down');
-    const [step, setStep] = useState(0);
+    const [ direction, setDirection ] = useState('down');
+    const [ step, setStep ] = useState(0);
 
     const spriteImage = process.env.PUBLIC_URL + '/static/sprite/sprite-boy.png';
 
@@ -70,7 +70,7 @@ export const Character = () => {
             essential: true,
             duration: 300,
         });
-    }, [marker, mapRef.current]);
+    }, [marker]);
 
 	const getBackgroundPosition = () => {
         let xOffset = step * -64;
@@ -112,3 +112,5 @@ export const Character = () => {
 
 	)
 }
+
+Avatar.displayName="Avatar";

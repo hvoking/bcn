@@ -7,8 +7,8 @@ import { Suggestions } from './suggestions';
 import './styles.scss';
 
 // Context imports
-import { useMapProperties } from '../../../../context/maps/properties';
-import { useStyles } from '../../../../context/styles';
+import { useMapProperties } from '../../../context/maps/properties';
+import { useStyles } from '../../../context/styles';
 
 export const Dropdown = () => {
 	const { cityName, setCityName, Locations, viewport, setViewport } = useMapProperties();
