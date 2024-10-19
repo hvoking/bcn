@@ -4,7 +4,7 @@ import './styles.scss';
 // Third party imports
 import { NavigationControl, FullscreenControl } from 'react-map-gl';
 
-export const Navigation = () => {
+export const Controllers = () => {
 	return (
 		<>
 			<NavigationControl/>
@@ -13,4 +13,4 @@ export const Navigation = () => {
 	)
 }
 
-Navigation.displayName="Navigation";
+Controllers.displayName="Controllers";

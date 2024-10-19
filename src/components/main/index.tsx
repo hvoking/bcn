@@ -1,7 +1,7 @@
 // App imports
 import { Wrapper } from './wrapper';
 import { Layers } from './layers';
-import { Navigation } from './nav';
+import { Controllers } from './controllers';
 import { Avatar } from './avatar';
 
 // Context imports
@@ -33,7 +33,7 @@ export const Main = () => {
 			>	
 				<Avatar/>
 				<Layers/>
-				<Navigation/>
+				<Controllers/>
 			</Map>
 		</Wrapper>
 	)

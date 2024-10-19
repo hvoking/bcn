@@ -2,7 +2,16 @@
 import { Source, Layer } from 'react-map-gl';
 
 export const Farmacies = () => {
-	const url = `${process.env.REACT_APP_API_URL}/tiles?schema_name=barcelona&style_name=sanitary_equipments&z={z}&x={x}&y={y}`;
+	const tempUrl = `
+    	${process.env.REACT_APP_API_URL}
+    	/tiles
+    	?table_schema=barcelona
+    	&table_name=sanitary_equipments
+    	&x={x}
+    	&y={y}
+    	&z={z}
+    `
+  	const url = tempUrl.replace(/\s/g, '');
 
 	const layerStyle: any = {
 	    id: "point-layer",
