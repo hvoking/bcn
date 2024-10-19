@@ -5,16 +5,16 @@ import { Controllers } from './controllers';
 import { Avatar } from './avatar';
 
 // Context imports
-import { useMapProperties } from '../context/maps/properties';
-import { useMouseEvents } from '../context/maps/events';
+import { useMapbox } from '../context/mapbox';
+import { useEvents } from '../context/events';
 
 // Third-party imports
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Map } from 'react-map-gl';
 
 export const Main = () => {
-	const { viewport, mapRef, mapStyle } = useMapProperties();
-    const { isDragging, onDragStart, onMouseMove, onDragEnd } = useMouseEvents();
+	const { viewport, mapRef, mapStyle } = useMapbox();
+    const { isDragging, onDragStart, onMouseMove, onDragEnd } = useEvents();
 
 	return (
 		<Wrapper>

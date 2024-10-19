@@ -4,15 +4,15 @@ import { useState, useEffect, useRef, useContext, createContext } from 'react';
 // App imports
 import * as Locations from './locations';
 
-const MapPropertiesContext: React.Context<any> = createContext(null);
+const MapboxContext: React.Context<any> = createContext(null);
 
-export const useMapProperties = () => {
+export const useMapbox = () => {
 	return (
-		useContext(MapPropertiesContext)
+		useContext(MapboxContext)
 	)
 }
 
-export const MapPropertiesProvider = ({children}: any) => {
+export const MapboxProvider = ({children}: any) => {
 	const mapRef = useRef<any>();
 
 	const [ cityName, setCityName ] = useState<any>("barcelona");
@@ -40,7 +40,7 @@ export const MapPropertiesProvider = ({children}: any) => {
 	}, [viewport]);
 	
 	return (
-		<MapPropertiesContext.Provider value={{
+		<MapboxContext.Provider value={{
 			mapStyle,
 			cityName, setCityName, 
 			mapRef, Locations, 
@@ -50,8 +50,8 @@ export const MapPropertiesProvider = ({children}: any) => {
 			marker, setMarker
 		}}>
 			{children}
-		</MapPropertiesContext.Provider>
+		</MapboxContext.Provider>
 	)
 }
 
-MapPropertiesContext.displayName = "MapPropertiesContext";
+MapboxContext.displayName = "MapboxContext";

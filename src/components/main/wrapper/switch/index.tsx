@@ -2,10 +2,10 @@
 import './styles.scss';
 
 // Context imports
-import { useMapProperties } from '../../../context/maps/properties';
+import { useMapbox } from '../../../context/mapbox';
 
 export const Switch = () => {
-	const { setActiveBasemap } = useMapProperties();
+	const { setActiveBasemap } = useMapbox();
 	
 	return (
 		<div className="basemaps-wrapper">
