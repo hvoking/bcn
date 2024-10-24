@@ -1,17 +1,13 @@
+// Context imports
+import { useStyles } from '../../../context/styles';
+
 // Third party imports
 import { Source, Layer } from 'react-map-gl';
 
 export const Farmacies = () => {
-	const tempUrl = `
-    	${process.env.REACT_APP_API_URL}
-    	/tiles
-    	?table_schema=barcelona
-    	&table_name=sanitary_equipments
-    	&x={x}
-    	&y={y}
-    	&z={z}
-    `
-  	const url = tempUrl.replace(/\s/g, '');
+	const { getTilesUrl } = useStyles();
+
+  	const url = getTilesUrl("barcelona", "sanitary_equipments");
 
 	const layerStyle: any = {
 	    id: "point-layer",
