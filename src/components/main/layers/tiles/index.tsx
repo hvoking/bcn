@@ -15,13 +15,13 @@ export const Tiles = () => {
 	
   	useEffect(() => {
     	const loadData = async () => {
-			const data = await fetchData(tableName);
+			const data = await fetchData('', tableName);
 			setStyleData(data);
 		}
 		loadData();
 	}, []);
 
-	const tilesUrl = getTilesUrl("layers", tableName)
+	const url = getTilesUrl("layers", tableName)
 
   	const layers = styleData.map((style: any, index: number) => {
 		return (
@@ -33,7 +33,7 @@ export const Tiles = () => {
 		<Source 
 			id="raster-style" 
 			type="vector" 
-			tiles={[ tilesUrl ]}
+			tiles={[ url ]}
 		>
 			{layers}
 		</Source>
