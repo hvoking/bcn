@@ -2,7 +2,7 @@
 import './styles.scss';
 
 // Context imports
-import { useMapbox } from '../../../context/mapbox';
+import { useMapbox } from 'context/mapbox';
 
 export const Switch = () => {
 	const { setActiveBasemap } = useMapbox();

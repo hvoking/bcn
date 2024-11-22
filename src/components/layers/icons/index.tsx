@@ -2,8 +2,8 @@
 import { useEffect } from 'react';
 
 // Context imports
-import { useMask } from '../../../context/mask';
-import { useMapbox } from '../../../context/mapbox';
+import { useMask } from 'context/mask';
+import { useMapbox } from 'context/mapbox';
 
 // Third party imports
 import { Source, Layer } from 'react-map-gl';

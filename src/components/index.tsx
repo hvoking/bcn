@@ -5,8 +5,8 @@ import { Controllers } from './controllers';
 import { Avatar } from './avatar';
 
 // Context imports
-import { useMapbox } from '../context/mapbox';
-import { useEvents } from '../context/events';
+import { useMapbox } from 'context/mapbox';
+import { useEvents } from 'context/events';
 
 // Third-party imports
 import 'mapbox-gl/dist/mapbox-gl.css';

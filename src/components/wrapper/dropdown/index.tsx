@@ -7,8 +7,8 @@ import { Suggestions } from './suggestions';
 import './styles.scss';
 
 // Context imports
-import { useMapbox } from '../../../context/mapbox';
-import { useStyles } from '../../../context/styles';
+import { useMapbox } from 'context/mapbox';
+import { useStyles } from 'context/styles';
 
 export const Dropdown = () => {
 	const { cityName, setCityName, Locations, viewport, setViewport } = useMapbox();
