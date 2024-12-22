@@ -24,7 +24,7 @@ export const MaskProvider = ({children}: any) => {
 	const mapFeatures = signal<any>(null);
 	const map = mapRef.current;
 
-	mapFeatures.value = map ? map.queryRenderedFeatures({layer: ['raster-style', 'sanitary-equipments']}) : [];
+	mapFeatures.value = map ? map.queryRenderedFeatures() : [];
 
 	const maskProperties = mapFeatures.value.filter((item: any) => 
 		item.source === 'raster-style' &&
