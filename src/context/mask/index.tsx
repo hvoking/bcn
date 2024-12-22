@@ -1,5 +1,5 @@
 // React imports
-import { useState, useEffect, useMemo, useContext, createContext } from 'react';
+import { useContext, createContext } from 'react';
 
 // Context imports
 import { useMapbox } from '../mapbox';
@@ -7,6 +7,7 @@ import { useCircle } from '../circle';
 
 // Third-party imports
 import * as turf from '@turf/turf';
+import { signal } from '@preact/signals-react';
 
 const MaskContext: React.Context<any> = createContext(null)
 
@@ -20,53 +21,20 @@ export const MaskProvider = ({children}: any) => {
 	const { mapRef } = useMapbox();
 	const { circleGeometry } = useCircle();
 
-	const [ mapFeatures, setMapFeatures ] = useState([]);
-	const [ activeFeatures, setActiveFeatures ] = useState(false);
+	const mapFeatures = signal<any>(null);
+	const map = mapRef.current;
 
-	useEffect(() => {
-		const map = mapRef.current;
+	mapFeatures.value = map ? map.queryRenderedFeatures({layer: ['raster-style', 'sanitary-equipments']}) : [];
 
-		if (!map) return;
+	const maskProperties = mapFeatures.value.filter((item: any) => 
+		item.source === 'raster-style' &&
+		turf.booleanPointInPolygon(turf.centroid(item.geometry), circleGeometry)
+	)
 
-		const onData = (e: any) => {
-	        if (e.tile) {
-	            setActiveFeatures((prev) => !prev);
-	        }
-	    };
-
-	    map.on('data', onData);
-
-	    return () => {
-	        map.off('data', onData);
-	    };
-	}, [ mapRef.current ]);
-
-	useEffect(() => {
-		const map = mapRef.current;
-
-		if (!map) return;
-		
-		setMapFeatures(map.queryRenderedFeatures());
-	}, [ activeFeatures, mapRef.current ]);
-
-	const maskProperties = useMemo(() => {
-	    return mapFeatures.filter((item: any) => {
-	        if (item.source === 'raster-style') {
-	            const featureGeometry = item.geometry;
-	            const featureCentroid = turf.centroid(featureGeometry);
-	            return turf.booleanPointInPolygon(featureCentroid, circleGeometry);
-	        }
-	    });
-	}, [ mapFeatures, circleGeometry ]);
-
-	const sanitaryEquipments = useMemo(() => {
-	    return mapFeatures.filter((item: any) => {
-	        if (item.source === 'sanitary-equipments') {
-	            const featureGeometry = item.geometry;
-	            return turf.booleanPointInPolygon(featureGeometry, circleGeometry);
-	        }
-	    });
-	}, [ mapFeatures, circleGeometry ]);
+	const sanitaryEquipments = mapFeatures.value.filter((item: any) => 
+		item.source === 'sanitary-equipments' &&
+		turf.booleanPointInPolygon(item.geometry, circleGeometry)
+	)
 
 	return (
 		<MaskContext.Provider value={{ maskProperties, sanitaryEquipments }}>
