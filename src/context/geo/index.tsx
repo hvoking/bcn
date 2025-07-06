@@ -4,24 +4,22 @@ import { useState, useEffect, useRef, useContext, createContext } from 'react';
 // App imports
 import * as Locations from './locations';
 
-const MapboxContext: React.Context<any> = createContext(null);
+const GeoContext: React.Context<any> = createContext(null);
 
-export const useMapbox = () => {
+export const useGeo = () => {
 	return (
-		useContext(MapboxContext)
+		useContext(GeoContext)
 	)
 }
 
-export const MapboxProvider = ({children}: any) => {
+export const GeoProvider = ({children}: any) => {
 	const mapRef = useRef<any>();
 
 	const [ cityName, setCityName ] = useState<any>("barcelona");
 	const [ viewport, setViewport ] = useState(Locations.barcelona);
 	
-	const [ currentBasemap, setCurrentBasemap ] = useState("https://basemaps.cartocdn.com/gl/positron-gl-style/style.json");
+	const [ mapStyle, setMapStyle ] = useState("mapbox://styles/mapbox/light-v11");
 	const [ activeBasemap, setActiveBasemap ] =  useState(false);
-
-	const mapStyle = !activeBasemap ? "mapbox://styles/mapbox/satellite-v9" : currentBasemap;
 
 	const [ marker, setMarker ] = useState({ 
 		latitude: viewport.latitude, 
@@ -40,18 +38,17 @@ export const MapboxProvider = ({children}: any) => {
 	}, [viewport]);
 	
 	return (
-		<MapboxContext.Provider value={{
-			mapStyle,
+		<GeoContext.Provider value={{
 			cityName, setCityName, 
 			mapRef, Locations, 
 			viewport, setViewport, 
 			activeBasemap, setActiveBasemap,
-			currentBasemap, setCurrentBasemap,
+			mapStyle, setMapStyle,
 			marker, setMarker
 		}}>
 			{children}
-		</MapboxContext.Provider>
+		</GeoContext.Provider>
 	)
 }
 
-MapboxContext.displayName = "MapboxContext";
+GeoContext.displayName = "GeoContext";

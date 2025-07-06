@@ -2,10 +2,10 @@
 import './styles.scss';
 
 // Context imports
-import { useMapbox } from 'context/mapbox';
+import { useGeo } from 'context/geo';
 
 export const Switch = () => {
-	const { setActiveBasemap } = useMapbox();
+	const { setMapStyle } = useGeo();
 	
 	return (
 		<div className="basemaps-wrapper">
@@ -18,7 +18,7 @@ export const Switch = () => {
 				  <span className="slider round"/>
 				  <span 
 				  	className="labels" 
-					onClick={() => setActiveBasemap((prev: boolean) => !prev)}
+					onClick={() => setMapStyle((prev: boolean) => !prev)}
 				  />
 				</label>
 			</div>

@@ -2,7 +2,7 @@
 import { useState, useContext, createContext } from 'react';
 
 // Context imports
-import { useMapbox } from '../mapbox';
+import { useGeo } from 'context/geo';
 
 // Third-party libraries
 import * as turf from '@turf/turf';
@@ -16,7 +16,7 @@ export const useCircle = () => {
 }
 
 export const CircleProvider = ({children}: any) => {
-	const { marker } = useMapbox();
+	const { marker } = useGeo();
 	const [ circleRadius, setCircleRadius ] = useState(1);
 
 	const { latitude, longitude }  = marker;

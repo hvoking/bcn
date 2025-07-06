@@ -2,13 +2,13 @@
 import { useState, useEffect } from 'react';
 
 // Context imports
-import { useMapbox } from 'context/mapbox';
+import { useGeo } from 'context/geo';
 
 // Third-party imports
 import { Marker } from 'react-map-gl';
 
 export const Avatar = () => {
-	const { marker, setMarker, mapRef } = useMapbox();
+	const { marker, setMarker, mapRef } = useGeo();
 
     const [ direction, setDirection ] = useState('down');
     const [ step, setStep ] = useState(0);

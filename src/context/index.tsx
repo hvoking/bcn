@@ -1,12 +1,12 @@
 import { StylesProvider } from './styles';
 import { CircleProvider } from './circle';
 import { MaskProvider } from './mask';
-import { MapboxProvider } from './mapbox';
+import { GeoProvider } from './geo';
 import { EventsProvider } from './events';
 
-export const MainProvider = ({children}: any) => {
+export const ContextProvider = ({children}: any) => {
   return (
-    <MapboxProvider>
+    <GeoProvider>
     <EventsProvider>
     <StylesProvider>
     <CircleProvider>
@@ -16,8 +16,8 @@ export const MainProvider = ({children}: any) => {
     </CircleProvider>
     </StylesProvider>
     </EventsProvider>
-    </MapboxProvider>
+    </GeoProvider>
   )
 }
 
-MainProvider.displayName="MainProvider";
+ContextProvider.displayName="ContextProvider";

@@ -5,8 +5,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 .App {
-  height: 100vh;
-  overflow: hidden;
   display: grid;
+  overflow: hidden;
+  height: calc(var(--vh, 1vh) * 100);
   max-height: calc(var(--vh, 1vh) * 100);
+  position: relative;
 }

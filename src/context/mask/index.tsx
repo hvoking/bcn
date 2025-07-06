@@ -2,8 +2,8 @@
 import { useContext, createContext } from 'react';
 
 // Context imports
-import { useMapbox } from '../mapbox';
-import { useCircle } from '../circle';
+import { useGeo } from 'context/geo';
+import { useCircle } from 'context/circle';
 
 // Third-party imports
 import * as turf from '@turf/turf';
@@ -18,7 +18,7 @@ export const useMask = () => {
 }
 
 export const MaskProvider = ({children}: any) => {
-	const { mapRef } = useMapbox();
+	const { mapRef } = useGeo();
 	const { circleGeometry } = useCircle();
 
 	const mapFeatures = signal<any>(null);

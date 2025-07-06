@@ -3,14 +3,14 @@ import { useEffect } from 'react';
 
 // Context imports
 import { useMask } from 'context/mask';
-import { useMapbox } from 'context/mapbox';
+import { useGeo } from 'context/geo';
 
 // Third party imports
 import { Source, Layer } from 'react-map-gl';
 
 export const Icons = () => {
 	const { sanitaryEquipments } = useMask();
-	const { mapRef } = useMapbox();
+	const { mapRef } = useGeo();
 	const imagePath = `${process.env.PUBLIC_URL}/static/symbols/pokemon_centre.png`;
 
 	useEffect(() => {
